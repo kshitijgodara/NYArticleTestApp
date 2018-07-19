@@ -33,11 +33,17 @@ class NYTestAppUITests: XCTestCase {
     
     func testTableInteraction() {
         // Assert that we are displaying the tableview
+        
+        // Make the TestCase Idel for 10 sec to load data
+        sleep(10)
+        
         let cells = app.tables.cells
+        snapshot("App Screenshot Launch with indicator")
+
         // Get an array of cells
         if cells.count > 0 {
             snapshot("after load")
-            let count: Int = (cells.count - cells.count/2)
+            let count: Int = (cells.count - 1)
             
             let promise = expectation(description: "Wait for table cells")
             
@@ -59,7 +65,7 @@ class NYTestAppUITests: XCTestCase {
                 app.navigationBars.buttons.element(boundBy: 0).tap()
             }
             
-            waitForExpectations(timeout: 70, handler: nil)
+            waitForExpectations(timeout: 50, handler: nil)
             XCTAssertTrue(true, "Finished validating the table cells")
         } else {
             XCTAssert(false, "Was not able to find any table cells")
